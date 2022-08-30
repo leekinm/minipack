@@ -4,10 +4,9 @@ import path from 'path';
 import parser from '@babel/parser';
 import traverse from '@babel/traverse';
 import { transformFromAstSync } from '@babel/core';
-import chalk from 'chalk';
 
 function makeDirectoryIfNotExist(dirName = 'dist') {
-	const dirPath = path.resolve(process.cwd(), '..', dirName);
+	const dirPath = path.resolve(process.cwd(), dirName);
 	if (!fs.existsSync(dirPath)) {
 		fs.mkdirSync(dirPath);
 	}
@@ -68,7 +67,7 @@ function createGraph(entryPath) {
 	const queue = [entryAsset];
 	for (const asset of queue) {
 		asset.deps.forEach((relativePath) => {
-			const child = createAssets(path.resolve(relativePath));
+			const child = createAssets(path.resolve('./src', relativePath));
 			asset.mapping[relativePath] = child.id;
 			queue.push(child);
 		});
@@ -100,4 +99,4 @@ function build(entryPath) {
 }
 
 console.log('\n打包任务正在构建中，请稍后...');
-build('./main.js');
+build('./src/main.js');
