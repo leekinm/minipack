@@ -1,0 +1,12 @@
+# IDE
+.DS_Store
+.vscode
+
+# log
+*.log
+
+# packages
+node_modules
+
+# production
+dist
